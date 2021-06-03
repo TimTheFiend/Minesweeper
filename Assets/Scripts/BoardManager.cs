@@ -7,8 +7,8 @@ public class BoardManager : MonoBehaviour
     public static BoardManager instance = null;
 
     [Header("Variables")]
-    [Range(5, 15)] public int columns = 8;
-    [Range(5, 15)] public int rows = 8;
+    [Range(5, 40)] public int columns = 8;
+    [Range(5, 40)] public int rows = 8;
     [Range(10, 100)] public int maxMines = 10;
 
     [Header("Game Objects")]
@@ -105,22 +105,17 @@ public class BoardManager : MonoBehaviour
         }
 
         for (int i = 0; i < maxMines; i++) {
-            int maxLoops = 10;
-            int recursiveLoopCounter = 0;
+
             while (true) {
-                if (recursiveLoopCounter > maxLoops) {
-                    print("FUCK");
-                    break;
-                }
-                int row = Random.Range(0, columns);
-                int col = Random.Range(0, rows);
+
+                int col = Random.Range(0, columns);
+                int row = Random.Range(0, rows);
 
                 if (grid[col, row].GetComponent<Tile>().isMine == false) {
                     grid[col, row].GetComponent<Tile>().isMine = true;
                     grid[col, row].GetComponent<Tile>().IncrementAdjacentTiles(col, row, rows, columns);
                     break;
                 }
-                recursiveLoopCounter++;
             }
         }
     }
